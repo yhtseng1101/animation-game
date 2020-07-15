@@ -6,15 +6,33 @@ function playNote(e) {
   const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`),
     key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
 
+  audio.load();
+
   if (!key) return;
 
   const keyNote = key.getAttribute("data-note");
-
+  
   key.classList.add("playing");
   note.innerHTML = keyNote;
   audio.currentTime = 0;
   audio.play();
 }
+
+function playNoteSustain(e) {
+  const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`),
+  key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+  
+  if (!key) return;
+
+  const keyNote = key.getAttribute("data-note");
+  
+  key.classList.add("playing");
+  note.innerHTML = keyNote;
+  audio.currentTime = 0;
+  audio.mozPreservesPitch = true;
+  audio.playbackRate = 0.5;
+  audio.play();
+  }
 
 function removeTransition(e) {
   if (e.propertyName !== "transform") return;
@@ -29,7 +47,20 @@ hints.forEach(hintsOn);
 
 keys.forEach(key => key.addEventListener("transitionend", removeTransition));
 
-window.addEventListener("keydown", playNote);  
+window.addEventListener("keydown", playNote);
+
+function sustain() {
+  var checkBox = document.getElementById("pedal");
+
+  if (checkBox.checked == true) {
+    window.addEventListener("keydown", playNoteSustain);
+    console.log('checked');
+  } else {
+    window.removeEventListener("keydown", playNoteSustain)
+    // window.addEventListener("keydown", playNote);
+    console.log('unchecked');
+  }
+}
 
 const { Path, Point } = paper;
 

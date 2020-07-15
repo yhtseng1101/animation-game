@@ -37,7 +37,7 @@
         }
         
         
-        function onFrame(event) {
+        function onFrame(event) { 
             // Loop through the segments of the path:
             for (var i = 0; i <= amount; i++) {
                 var toManipulate  = linePathWave.segments[i];
@@ -131,7 +131,19 @@
         <canvas class="squig" resize></canvas>
         <section id="wrap">
             <section id="main">
-              <div class="nowplaying"></div>
+                <div class="pedal flex-container">
+                    <div>
+                        <label class="switch">
+                            <input type="checkbox" id="pedal" onclick="sustain()">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div>
+                        <h5>Sustain Pedal</h5>
+                    </div>
+                </div>
+                <div class="nowplaying"></div>
+
               <div class="keys">
                 <canvas id="myCanvasK" data-key="65" class="key" data-note="C">
                     <span class="hints">A</span>
